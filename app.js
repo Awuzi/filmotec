@@ -9,9 +9,11 @@ const LocalStrategy = require('passport-local').Strategy;
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/filmotec')
-  .then(() =>  console.log('connection succesful'))
-  .catch((err) => console.error(err));
+mongoose.connect('mongodb://localhost/filmotec', {
+    useUnifiedTopology: true, useNewUrlParser: true
+})
+    .then(() => console.log('connection succesful'))
+    .catch((err) => console.error(err));
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -28,12 +30,15 @@ app.set('view engine', 'twig');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 3600000, // see below
+    },
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -51,21 +56,21 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  let err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    let err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
