@@ -1,0 +1,54 @@
+* {
+  padding:0 ;
+  margin:0 ;
+}
+body {
+  font-family: "Montserrat", sans-serif ;
+}
+
+.mainpage {
+  height: 100vh ;
+  display: flex ;
+}
+
+section {
+  height: 100% ;
+  display: flex ;
+  align-items: center ;
+  justify-content: center ;
+  flex: 1 ;
+  transition: all .5s ;
+}
+
+section:hover {
+  flex: 2 ;
+}
+
+section h1 {
+  background: rgba(0, 0, 0, 0.4) ;
+  color: white ;
+  padding: 12px 32px ;
+}
+
+a {
+  text-decoration: none ;
+  color: white ;
+}
+
+.movies {
+  background: #2e65ff url("/images/movie.jpg") center ;
+  background-size: cover ;
+  background-blend-mode: multiply ;
+}
+
+.sign-up {
+  background: #d2ff09 url("/images/sign-up.jpg") center ;
+  background-size: cover ;
+  background-blend-mode: multiply ;
+}
+
+.sign-in {
+  background: #ff3a38 url("/images/tmdb.jpg") center ;
+  background-size: cover ;
+  background-blend-mode: multiply ;
+}
