@@ -11,54 +11,32 @@
     <div class="container">
         <h1 class="mt-6">Welcome to the APNOTPAN</h1>
 
-
         {% for movie in movies %}
             <div class="card-deck mt-4 gird">
-                {% for i in 0..1 %}
-                    <div class="card" style="max-width: 500px;">
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="background: #868e96;">
-                                <img src="http://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top h-100" alt="...">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ movie.title | upper }}</h5>
-                                    <p class="card-text">{{ movie.overview | truncate(200, false, "...") }}</p>
-                                    <p class="card-text text-muted"> Produceur name</p>
-                                    <a href="#" class="btn btn-primary stretched-link">
-                                        {% if note %}
-                                            there is {{ note|length }} note
-                                            {% else %}
-                                            not note on this movie
-                                        {% endif %}
-                                    </a>
-                                </div>
-                            </div>
+                <div class="card col-md-12">
+                    <div class="row no-gutters">
+                        <div class="col-md-2" style="background: #868e96;">
+                            <img src="http://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top h-100" alt="...">
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-
-
-
-        <div class="row">
-            <div class="col-md-9">
-                <div class="grid" id="ponts">
-                    <div class="card card-accent-dark">
-                        <div class="card-body">
-                            <h5 class="card-title" id="elem_patri" style="font-weight:bold;"></h5>
-                            <div class="card-title">
-                                <span id="commune">zzz</span> <span id="identifian"></span>
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ movie.title | upper }}</h5>
+                                <p class="card-text">{{ movie.overview | truncate(300, false, "...") }}</p>
+                                <p class="card-text text-muted"> Produceur name</p>
+                                <a href="#" class="btn btn-primary stretched-link">
+                                    {% if note %}
+                                        there is {{ note|length }} note
+                                    {% else %}
+                                        no note on this movie
+                                    {% endif %}
+                                </a>
                             </div>
-                            <p class="text text-muted" id="elem_princ"></p>
-                        </div>
-                        <div class="card-footer">
-                            <h5 class="text-right"><a href="#" class="far fa-heart f-left"></a></h5>
                         </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
+
 
     </div>
 
