@@ -16,15 +16,17 @@ mongoose.connect('mongodb://localhost/filmotec', {
     .catch((err) => console.error(err));
 
 const indexRouter = require('./routes/index');
+const apNotPan = require('./routes/apnotpan');
+const apMagWeb = require('./routes/apmagweb');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const apiRouter = require('./api/api');
-
 const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
+app.set("twig options", {allow_async: true});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -48,6 +50,8 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/api', apiRouter);
+app.use('/apnotpan', apNotPan);
+app.use('/apmagweb', apMagWeb);
 
 // passport configuration
 const User = require('./models/User');

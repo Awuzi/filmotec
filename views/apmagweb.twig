@@ -6,30 +6,17 @@
 
 {% block body %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">FILMOTEC</a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/">Home</a>
-                <a class="nav-item nav-link" href="/movies">Movies</a>
-                {% if user %}
-                    <a class="nav-item nav-link">Welcome {{ user.name }}</a>
-                    <a class="nav-item nav-link" href="/logout">Logout</a>
-                {% else %}
-                    <a class="nav-item nav-link" href="/login">Login</a>
-                {% endif %}
-
-            </div>
-        </div>
-    </nav>
-
+  {% include 'includes/navbar.twig' %}
 
     <div class="container">
-        <h1 class="mt-6">Welcome to the TMDB magazine</h1>
-        <h3>get data with API</h3>
+        <h1 class="mt-6">Welcome to the APMAGWEB</h1>
         {% if user %}
             <p>Welcome {{ user }}</p>
         {% endif %}
+
+    {% for movie in movies %}
+        {{ movie.id }}
+    {% endfor %}
         <div class="card-deck mt-4">
             <div class="card">
                 <img class="card-img-top" src="/images/movie.jpg" alt="Card image cap">

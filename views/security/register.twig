@@ -3,16 +3,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 {% endblock %}
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">FILMOTEC</a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/">Home</a>
-                <a class="nav-item nav-link" href="/movies">Movies</a>
-                <a class="nav-item nav-link" href="/login">Login</a>
-            </div>
-        </div>
-    </nav>
+    {% include 'includes/navbar.twig' %}
 
 
 

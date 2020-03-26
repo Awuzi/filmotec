@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
     passport.authenticate('local')(req, res, function () {
         req.session.passport.user = req.user;
-        res.render('movies', {
+        res.render('apmagweb', {
             user : req.user
         });
     });
