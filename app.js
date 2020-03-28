@@ -12,7 +12,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/filmotec', {
     useUnifiedTopology: true, useNewUrlParser: true
 })
-    .then(() => console.log('connection succesful'))
+    .then(() => console.log('|><<-  CONNECTION SUCCESFULL  ->><|'))
     .catch((err) => console.error(err));
 
 const indexRouter = require('./routes/index');

@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
 // route for login action
 router.post('/', function (req, res) {
     passport.authenticate('local')(req, res, function () {
-        req.session.passport.user = req.user;
+        console.log(req.user);
         res.render('apmagweb', {
             user : req.user
         });

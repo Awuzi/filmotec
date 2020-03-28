@@ -5,8 +5,6 @@
 {% block body %}
     {% include 'includes/navbar.twig' %}
 
-
-
     <div class="container col-md-4 mt-4 mb-3"><h3>Login</h3></div>
     <div class="container col-md-4">
         <form method="post">
@@ -16,7 +14,8 @@
             <div class="form-group">
                 <input type="password" name="password" class="form-control" placeholder="password">
             </div>
-            <button type="submit" class="btn btn-default">Login</button>
+            <button type="submit" class="btn btn-outline-dark">Login</button>
+            <a href="/register" class="btn btn-dark">Register</a>
         </form>
     </div>
 {% endblock %}

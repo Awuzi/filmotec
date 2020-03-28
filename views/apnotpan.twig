@@ -9,10 +9,15 @@
     {% include 'includes/navbar.twig' %}
 
     <div class="container">
-        <h1 class="mt-6">Welcome to the APNOTPAN</h1>
+        <div class="jumbotron mt-5" style=""><h1 class="display-3">Welcome to APNOTPAN</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        </div>
+
 
         {% for movie in movies %}
-            <div class="card-deck mt-4 gird">
+            <div class="mt-4 gird">
                 <div class="card col-md-12">
                     <div class="row no-gutters">
                         <div class="col-md-2" style="background: #868e96;">
@@ -20,16 +25,11 @@
                         </div>
                         <div class="col-md-10">
                             <div class="card-body">
-                                <h5 class="card-title">{{ movie.title | upper }}</h5>
+                                <h4 class="card-title">{{ movie.title | upper }}</h4>
                                 <p class="card-text">{{ movie.overview | truncate(300, false, "...") }}</p>
-                                <p class="card-text text-muted"> Produceur name</p>
-                                <a href="#" class="btn btn-primary stretched-link">
-                                    {% if note %}
-                                        there is {{ note|length }} note
-                                    {% else %}
-                                        no note on this movie
-                                    {% endif %}
-                                </a>
+                                <p class="card-text text-muted"></p>
+                                <p class="card-text text-muted"></p>
+                                <a href="/apnotpan/{{ movie.id }}" class="btn btn-outline-dark">See More</a>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
             </div>
         {% endfor %}
 
-
+        {% include 'includes/footer.twig' %}
     </div>
 
 {% endblock %}
