@@ -15,7 +15,7 @@
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         </div>
 
-        <div class="card-deck d-flex col-12">
+        <div class="card-deck d-flex col-15">
             {% for movie in movies %}
                 <div class="col-6 mt-3">
                     <div class="card mb-3">
@@ -26,8 +26,8 @@
                             <div class="col-md-8 adjustement">
                                 <div class="card-body">
                                     <h5 class="card-title"><b>{{ movie.title | upper | truncate(20, false, "...") }}</b></h5>
-                                    <p>{{ movie.overview | truncate(100, false, "...") }}</p>
-                                    <small><a href="/apnotpan/{{ movie.id }}" class="btn btn-outline-dark">Discover</a>
+                                    <p>{{ movie.overview | truncate(150, false, "...") }}</p>
+                                    <small><a href="/apnotpan/{{ movie.id }}" class="btn btn-outline-dark"></a>
                                     </small>
                                 </div>
                             </div>
@@ -37,7 +37,20 @@
             {% endfor %}
         </div>
 
+        <style>
+            @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
+            .btn.btn-outline-dark {
+                position: absolute;
+                top: 186px;
+                right: 15px;
+            }
+
+            .btn.btn-outline-dark:after {
+                content: "\f138";
+                font-family: FontAwesome, serif;
+            }
+        </style>
         {% include 'includes/footer.twig' %}
     </div>
 

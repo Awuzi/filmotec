@@ -4,7 +4,7 @@ const axios = require('axios');
 const API_KEY = "8e21ddf9674f198702f947e8665956cc";
 
 router.get('/', function (req, res, next) {
-    axios.get("http://localhost:3000/api/movies")
+    axios.get("http://localhost:3000/api/movies/10")
         .then(response => {
             res.render("apnotpan", {
                 movies: response.data
