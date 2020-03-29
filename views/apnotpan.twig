@@ -15,27 +15,28 @@
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         </div>
 
-
-        {% for movie in movies %}
-            <div class="mt-4 gird">
-                <div class="card col-md-12">
-                    <div class="row no-gutters">
-                        <div class="col-md-2" style="background: #868e96;">
-                            <img src="http://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img-top h-100" alt="...">
-                        </div>
-                        <div class="col-md-10">
-                            <div class="card-body">
-                                <h4 class="card-title">{{ movie.title | upper }}</h4>
-                                <p class="card-text">{{ movie.overview | truncate(300, false, "...") }}</p>
-                                <p class="card-text text-muted"></p>
-                                <p class="card-text text-muted"></p>
-                                <a href="/apnotpan/{{ movie.id }}" class="btn btn-outline-dark">See More</a>
+        <div class="card-deck d-flex col-12">
+            {% for movie in movies %}
+                <div class="col-6 mt-3">
+                    <div class="card mb-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="http://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" class="card-img" alt="">
+                            </div>
+                            <div class="col-md-8 adjustement">
+                                <div class="card-body">
+                                    <h5 class="card-title"><b>{{ movie.title | upper | truncate(20, false, "...") }}</b></h5>
+                                    <p>{{ movie.overview | truncate(100, false, "...") }}</p>
+                                    <small><a href="/apnotpan/{{ movie.id }}" class="btn btn-outline-dark">Discover</a>
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+
 
         {% include 'includes/footer.twig' %}
     </div>
