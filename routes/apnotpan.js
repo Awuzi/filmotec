@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const API_KEY = "8e21ddf9674f198702f947e8665956cc";
-const Movie = require('../models/Movie')
+const Movie = require('../models/Movie');
 
 router.get('/', function (req, res, next) {
-    axios.get("http://localhost:3000/api/movies/10")
+    axios.get("http://localhost:3000/api/movies/6")
         .then(response => {
             res.render("apnotpan", {
                 movies: response.data
@@ -22,27 +22,28 @@ router.get('/:id', function (req, res) {
     axios.all([casting, movie_infos]).then(axios.spread((...responses) => {
         const casting = responses[0].data;
         const movie_infos = responses[1].data;
-        let movie = Movie.find({"movie_id" : req.params.id }, function(err, result) {
+        let movies = Movie.find({"movie_id" : req.params.id }, function(err, result) {
         });
-        console.log(movie)
+        console.log(movies);
         //console.log(casting);
         res.render('movie', {
             casting: casting,
             movie_infos: movie_infos,
-            movie: movie
+            movies: movies
         })
     }))
 });
 
 router.post('/:id', function (req, res) {
-    firstname = req.body.firstname;
-    lastname = req.body.lastname;
-    comment = req.body.comment;
-    note = req.body.eval;
-    curID = req.params.id;
-    Movie.insertMany(new Movie({user_firstname : firstname, user_lastname: lastname, movie_id: curID, comment: comment, eval: note}))
-    res.redirect("/apnotpan/" + req.params.id);
-})
+    Movie.insertMany(new Movie({
+        user_firstname: req.body.firstname,
+        user_lastname: req.body.lastname,
+        movie_id: req.params.id,
+        comment: req.body.comment,
+        eval: req.body.eval
+    }));
+    res.redirect(req.params.id)
+});
 
 
 module.exports = router;
