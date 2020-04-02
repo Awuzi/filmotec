@@ -9,10 +9,8 @@
   {% include 'includes/navbar.twig' %}
 
         <div class="container">
-            <h1 class="mt-6">Welcome to the APMAGWEB</h1>
-            {% if user %}
-                <p>Welcome {{ user }}</p>
-            {% endif %}
+            <h1 class="mt-5">Welcome to APMAGWEB</h1>
+            <hr>
 
         {% for movie in movie_magazine %}
         <div class="row">
@@ -33,8 +31,8 @@
                 </div>
             </div>
             <div class="col-5 mt-3">
-                <p>{{ movie.worstEval }} - {{movie.worstComment}}</p>
                 <p>{{ movie.bestEval }} - {{movie.bestComment}}</p>
+                <p>{{ movie.worstEval }} - {{movie.worstComment}}</p>
             </div>
         </div>
         {% endfor %}

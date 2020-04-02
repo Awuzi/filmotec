@@ -21,23 +21,23 @@ router.get('/', function (req, res, next) {
             }], (err, result) => {
                 result.forEach(r => {
                     responses.data.forEach(movie => {
-                        if (r._id === movie.id) {
+                        if (r._id === movie.id)
                             movie_magazine.push({
                                 id: movie.id,
                                 title: movie.title,
                                 overview: movie.overview,
                                 poster_path: movie.poster_path,
                                 release_date: movie.release_date,
-                                bestComment: r.bestComment,
-                                bestEval: r.bestEval,
-                                worstComment: r.worstComment,
-                                worstEval: r.worstEval,
                                 avgEval: r.evalAvg,
+                                bestEval: r.bestEval,
+                                bestComment: r.bestComment,
+                                worstEval: r.worstEval,
+                                worstComment: r.worstComment,
                             });
-                        }
+
                     });
                 });
-                console.log(movie_magazine);
+                //console.log(movie_magazine);
                 res.render('apmagweb', {movie_magazine: movie_magazine});
             });
         })
