@@ -52,3 +52,9 @@ a {
   background-size: cover ;
   background-blend-mode: multiply ;
 }
+
+.my-profile {
+  background: #ff9553 url("/images/sonic.jpg") center ;
+  background-size: cover ;
+  background-blend-mode: multiply ;
+}

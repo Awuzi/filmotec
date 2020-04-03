@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const passport = require("passport");
-
+//const passport = require("passport");
+const User = require('../models/User');
+const crypto = require('crypto');
 
 // route to login page
 router.get('/', function (req, res) {
@@ -9,12 +10,22 @@ router.get('/', function (req, res) {
 });
 
 // route for login action
-router.post('/', function (req, res) {
-    passport.authenticate('local')(req, res, function () {
-        res.render('apmagweb', {
-            user: req.user
+router.post('/', (req, res) => {
+    if (!req.body) {
+        res.redirect('/');
+    } else {
+        User.count({
+            username: req.body.username,
+            password: crypto.createHash('sha256').update(req.body.password).digest('base64')
+        }, (err, result) => {
+            if (result === 1) {
+                req.session.username = req.body.username;
+                res.redirect("/")
+            } else {
+                res.render("security/login", {error: "Identifiants incorrects."})
+            }
         });
-    });
+    }
 });
 
 

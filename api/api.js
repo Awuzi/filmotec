@@ -22,7 +22,7 @@ router.get('/movies/:page', function (req, res, next) {
     let calls = [];
     const movies_tab = [];
     for (let i = 1; i <= req.params.page; ++i) {
-        calls.push(axios.get("https://api.themoviedb.org/3/discover/movie?api_key="+API_KEY+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+ i));
+        calls.push(axios.get("https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=" + i));
     }
     Promise.all(calls).then(function (responses) {
         responses.forEach(response => {

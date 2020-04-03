@@ -21,16 +21,6 @@
 
     <form class="col-md-10 m-auto" method="post">
         <h3 class="mt-5">Add a comment below</h3>
-        <div class="row">
-            <div class="col">
-                <label for="name">Firstname</label>
-                <input type="text" name="firstname" class="form-control" id="name">
-            </div>
-            <div class="col">
-                <label for="lastname">Lastname</label>
-                <input type="text" name="lastname" class="form-control" id="lastname">
-            </div>
-        </div>
         <div class="form-group">
             <label for="comment">Your comment</label>
             <textarea name="comment" class="form-control textarea" id="comment" rows="5"></textarea>
@@ -55,7 +45,7 @@
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                         <div class="g-mb-15">
-                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ item.user_firstname }} {{ item.user_lastname }}</h5>
+                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ item.username | capitalize }} </h5>
                             <span class="g-color-gray-dark-v4 g-font-size-12 eval">{{ item.eval }} </span>
                         </div>
                         <p>{{ item.comment }}</p>

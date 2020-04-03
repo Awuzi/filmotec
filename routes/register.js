@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require("passport");
 const User = require("../models/User");
+const crypto = require('crypto');
 
 // route to register page
 router.get('/', function (req, res) {
@@ -10,14 +11,18 @@ router.get('/', function (req, res) {
 
 // route for register action
 router.post('/', function (req, res) {
-    User.register(new User({username: req.body.username, name: req.body.name}), req.body.password, function (err, user) {
+    User.insertMany(new User({
+        username: req.body.username,
+        name: req.body.name,
+        password: crypto.createHash('sha256').update(req.body.password).digest('base64')
+    }), (err, user) => {
         if (err) {
-            return res.render("security/register", { user: user });
+            res.render("security/register", {user: user});
         }
-
-        passport.authenticate('local')(req, res, function () {
+        res.redirect('/apnotpan');
+        /*passport.authenticate('local')(req, res, function () {
             res.redirect('/');
-        });
+        });*/
     });
 });
 

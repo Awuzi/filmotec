@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-let Movies = require('../models/Movie');
+
 
 
 router.get('/', function (req, res, next) {
-    res.render('index')
+    res.render('index', {
+        user: req.session.username
+    })
 });
 
-/*router.route('/api/movies').get((res,req) =>{
-    console.log(req.query);
-    res.json({
-        id : req.query.id
-    });
-});*/
-
-
-
-router.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
+router.get('/logout', function(req, res, next) {
+    if (req.session) {
+        req.session.destroy((err) =>{
+            if(err) {
+                return next(err);
+            } else {
+                return res.redirect("/apnotpan")
+            }
+        });
+    }
 });
 
 module.exports = router;
