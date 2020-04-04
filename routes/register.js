@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require("passport");
-const User = require("../models/User");
+const passport = require('passport');
+const User = require('../models/User');
 const crypto = require('crypto');
 
 // route to register page
@@ -17,7 +17,7 @@ router.post('/', function (req, res) {
         password: crypto.createHash('sha256').update(req.body.password).digest('base64')
     }), (err, user) => {
         if (err) {
-            res.render("security/register", {user: user});
+            res.render('security/register', {user: user});
         }
         res.redirect('/apnotpan');
         /*passport.authenticate('local')(req, res, function () {
