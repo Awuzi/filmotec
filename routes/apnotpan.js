@@ -4,7 +4,7 @@ const axios = require('axios');
 const API_KEY = '8e21ddf9674f198702f947e8665956cc';
 const Movie = require('../models/Movie');
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     axios.get(`http://localhost:3000/api/movies/6`)
         .then(response => {
             res.render('apnotpan', {
@@ -23,14 +23,14 @@ router.get('/:id', function (req, res) {
     axios.all([casting, movie_infos]).then(axios.spread((...responses) => {
         const casting = responses[0].data;
         const movie_infos = responses[1].data;
-        let movies = Movie.find({'movie_id': req.params.id});
+        let movie_comments = Movie.find({'movie_id': req.params.id});
         res.render('movie', {
             casting: casting,
             movie_infos: movie_infos,
-            movies: movies,
+            comments: movie_comments,
             user: req.session.username
-        })
-    }))
+        });
+    }));
 });
 
 router.post('/:id', function (req, res) {
@@ -41,7 +41,7 @@ router.post('/:id', function (req, res) {
             comment: req.body.comment,
             eval: req.body.eval
         }));
-        res.redirect(req.params.id)
+        res.redirect(req.params.id);
     }
     res.redirect('/login');
 });

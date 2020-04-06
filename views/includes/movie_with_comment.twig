@@ -21,10 +21,6 @@
 
     <form class="col-md-10 m-auto" method="post">
         <h3 class="mt-5">Add a comment below</h3>
-        <div class="form-group">
-            <label for="comment">Your comment</label>
-            <textarea name="comment" class="form-control textarea" id="comment" rows="5"></textarea>
-        </div>
         <div class="container">
             <div class="starrating risingstar d-flex flex-row-reverse">
                 <input type="radio" id="star5" name="eval" value="5"/><label for="star5" title="5 star"></label>
@@ -40,15 +36,15 @@
 
     <div class="row mb-5">
         <div class="col-md-12">
-            {% for item in movies %}
+            {% for comment in comments %}
                 <div class="media g-mb-30 media-comment">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                         <div class="g-mb-15">
-                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ item.username | capitalize }} </h5>
-                            <span class="g-color-gray-dark-v4 g-font-size-12 eval">{{ item.eval }} </span>
+                            <h5 class="h5 g-color-gray-dark-v1 mb-0">{{ comment.username | capitalize }} </h5>
+                            <span class="g-color-gray-dark-v4 g-font-size-12 eval">{{ comment.eval }} </span>
                         </div>
-                        <p>{{ item.comment }}</p>
+                        <p>{{ comment.comment }}</p>
                     </div>
                 </div>
             {% endfor %}

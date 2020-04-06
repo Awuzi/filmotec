@@ -50,7 +50,7 @@ app.use('/register', registerRouter);
 app.use('/api', apiRouter);
 app.use('/apnotpan', apNotPan);
 app.use('/apmagweb', apMagWeb);
-app.use((res, req, next) => res.locals.session = req.session);
+app.use((res, req) => res.locals.session = req.session);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     let err = new Error('Not Found');
@@ -59,7 +59,7 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);

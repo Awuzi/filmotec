@@ -5,7 +5,7 @@ const Movie = require('../models/Movie');
 const _ = require('lodash');
 
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     const movie_comments = [],
         bestComment = [],
         worstComment = [],
@@ -15,9 +15,11 @@ router.get('/', function (req, res, next) {
 
     Movie.find({}, (err, result) => {
         result.forEach(comment => movie_comments.push(comment));
-        const moviesChained = _.chain(movie_comments).groupBy('movie_id').map((value, key) => ({movie_id: key, comment: value})).value();
 
-        moviesChained.forEach(obj => {
+        const groupedComments = _.chain(movie_comments).groupBy('movie_id')
+            .map((value, key) => ({movie_id: key, comment: value})).value();
+
+        groupedComments.forEach(obj => {
             if (obj.comment.length === 1) {
                 bestComment.push(_.maxBy(obj.comment, 'eval'));
             } else {
@@ -26,15 +28,16 @@ router.get('/', function (req, res, next) {
             }
         });
 
+        // push best and worst comment in an intermediate array
         bestComment.forEach(obj => obj != null ? intermediate.push(obj) : null);
         worstComment.forEach(obj => obj != null ? intermediate.push(obj) : null);
 
-        let comments = _.chain(intermediate)
+        let sortedComments = _.chain(intermediate)
             .groupBy('movie_id')
             .map((value, key) => ({movie_id: key, comment: value}))
             .value();
 
-        comments.forEach(c => calls.push(axios.get(`http://localhost:3000/api/movie/infos/${c.movie_id}`)));
+        sortedComments.forEach(c => calls.push(axios.get(`http://localhost:3000/api/movie/infos/${c.movie_id}`)));
 
         Movie.aggregate([{
             $group: {
@@ -43,11 +46,14 @@ router.get('/', function (req, res, next) {
             }
         }], (err, result) => {
             result.forEach(r => {
-                comments.forEach(comment => {
+                sortedComments.forEach(comment => {
                     if (parseInt(comment.movie_id) === r._id) {
-                        Object.assign(comment, {evalAvg: Math.round(r.evalAvg * 10) / 10});
+                        Object.assign(comment, {
+                            //avoid notation like '2,66666/5' -> prefer '2,6/5'
+                            evalAvg: Math.round(r.evalAvg * 10) / 10
+                        });
                     }
-                })
+                });
             });
 
             axios.all(calls).then(axios.spread((...responses) => {
@@ -57,10 +63,10 @@ router.get('/', function (req, res, next) {
                         title: response.data.title,
                         overview: response.data.overview,
                         poster_path: response.data.poster_path,
-                    })
+                    });
                 });
 
-                let mergedMovieComments = _.map(comments, (item) => {
+                let mergedMovieComments = _.map(sortedComments, (item) => {
                     return _.extend(item, _.find(movie_infos, {movie_id: item.movie_id}));
                 });
                 res.send(mergedMovieComments);

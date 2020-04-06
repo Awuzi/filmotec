@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const crypto = require('crypto');
 
-// route to login page
+// ( /login )
 router.get('/', function (req, res) {
     res.render('security/login');
 });
@@ -19,9 +19,9 @@ router.post('/', (req, res) => {
         }, (err, result) => {
             if (result === 1) {
                 req.session.username = req.body.username;
-                res.redirect('/')
+                res.redirect('/');
             } else {
-                res.render('security/login', {error: 'Identifiants incorrects.'})
+                res.render('security/login', {error: 'Identifiants incorrects.'});
             }
         });
     }

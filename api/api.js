@@ -12,10 +12,9 @@ router.get('/', function (req, res) {
 
 
 router.get('/movies', function (req, res) {
-    const url = TMDB_URL;
-    fetch(url).then(response => response.json()).then(data => {
+    fetch(TMDB_URL).then(response => response.json()).then(data => {
         res.send(data.results);
-    })
+    });
 });
 
 router.get('/movies/:page', function (req, res) {
@@ -38,14 +37,14 @@ router.get('/movie/infos/:id', function (req, res) {
     const url = `https://api.themoviedb.org/3/movie/${req.params.id}?api_key=${API_KEY}`;
     fetch(url).then(response => response.json()).then(data => {
         res.send(data);
-    })
+    });
 });
 
 router.get('/movie/casting/:id', function (req, res) {
     const url = `https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=${API_KEY}`;
     fetch(url).then(response => response.json()).then(data => {
         res.send(data.crew);
-    })
+    });
 });
 
 module.exports = router;
